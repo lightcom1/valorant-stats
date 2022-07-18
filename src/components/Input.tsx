@@ -36,8 +36,8 @@ const Input = () => {
 	}, [data]);
 
 	useEffect(() => {
-		const username = JSON.parse(localStorage.getItem('name') ?? '');
-		const tag = JSON.parse(localStorage.getItem('tag') ?? '');
+		const username = JSON.parse(localStorage.getItem('name')!) ?? '';
+		const tag = JSON.parse(localStorage.getItem('tag')!) ?? '';
 
 		setNickname(`${username}#${tag}`);
 	}, []);
@@ -59,7 +59,8 @@ const Input = () => {
 			</video>
 			{isError && (
 				<p className='warning-text'>
-					Invalid nickname and/or tag "username#tag"
+					Invalid nickname and/or tag "username#tag" <br/>
+					Also if you have AdBlock you need to disable it
 				</p>
 			)}
 			<input

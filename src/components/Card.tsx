@@ -26,6 +26,9 @@ const Card: React.FC<HistoryData> = ({
 	const isDraw = !teams?.red.has_won && !teams?.blue.has_won;
 	const isWon = playerTeam === 'Blue' ? !isRedWon : isRedWon;
 
+	const redWon = teams?.red.rounds_won;
+	const blueWon = teams?.blue.rounds_won;
+
 	const time = new Date(`${metadata?.game_start_patched}`);
 	let hours = time.getHours() + 1;
 	const AmOrPm = hours >= 12 ? 'PM' : 'AM';
@@ -44,27 +47,40 @@ const Card: React.FC<HistoryData> = ({
 		'Nov',
 		'Dec',
 	];
+
 	const player = players?.all_players[playerIndex!];
+
 	return (
 		<div className='match'>
 			<div className='match-data'>
-				<p className='day'>
-					{month[time.getMonth()]} {daysInWeek[time.getDay()]}{' '}
-					{hours % 12 || 12}:{time.getMinutes()} {AmOrPm}
-				</p>
-				<p className='minutes'>
-					Time: {convertMsToMinutesSeconds(metadata?.game_length!)} min
-				</p>
-				<div className='map-stats'>
-					<p className='map-stats__map'>{metadata?.map}:</p>
-					{!isDraw && (
-						<p className={`map-stats__result ${isWon ? 'victory' : 'defeat'}`}>
-							{isWon ? 'Victory' : 'Defeat'}
-						</p>
-					)}
-					{isDraw && <p className='map-stats__result draw'>Draw</p>}
+				<div className='match-data-score'>
+					<span className={`rounds__won ${isWon && 'victory'}`}>
+						{playerTeam === 'Blue' ? blueWon : redWon}
+					</span>
+					<span className={`rounds__lost ${!isWon && 'defeat'}`}>
+						{playerTeam === 'Blue' ? redWon : blueWon}
+					</span>
 				</div>
-				<p className='score'>Score: {player!.stats.score}</p>
+				<div className='match-data-info'>
+					<p className='day'>
+						{month[time.getMonth()]} {daysInWeek[time.getDay()]}{' '}
+						{hours % 12 || 12}:{time.getMinutes()} {AmOrPm}
+					</p>
+					<p className='minutes'>
+						Time: {convertMsToMinutesSeconds(metadata?.game_length!)} min
+					</p>
+					<div className='map-stats'>
+						<p className='map-stats__map'>{metadata?.map}:</p>
+						{!isDraw && (
+							<p
+								className={`map-stats__result ${isWon ? 'victory' : 'defeat'}`}>
+								{isWon ? 'Victory' : 'Defeat'}
+							</p>
+						)}
+						{isDraw && <p className='map-stats__result draw'>Draw</p>}
+					</div>
+					<p className='score'>Score: {player!.stats.score}</p>
+				</div>
 			</div>
 			<div className='player-stats'>
 				<img src={player!.assets.agent.small} alt='agent' />

@@ -9,8 +9,8 @@ interface AccountState {
 }
 
 const initialState: AccountState = {
-	username: JSON.parse(localStorage.getItem(LS_ACC_NAME) ?? ''),
-	tag: JSON.parse(localStorage.getItem(LS_ACC_TAG) ?? ''),
+	username: JSON.parse(localStorage.getItem(LS_ACC_NAME)!) ?? '',
+	tag: JSON.parse(localStorage.getItem(LS_ACC_TAG)!) ?? '',
 };
 
 export const accountSlice = createSlice({
