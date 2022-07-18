@@ -1,0 +1,86 @@
+.account-matches {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 60vh;
+
+	&::-webkit-scrollbar {
+		width: 0;
+	}
+
+	.match {
+		color: #fff;
+		padding: 5px;
+		background: rgba(19, 35, 51, 0.9);
+		margin-bottom: 10px;
+		font-size: 1.5rem;
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		&-data {
+			display: grid;
+			row-gap: 10px;
+			grid-template-columns: 1fr 1fr;
+			margin-bottom: 10px;
+			position: relative;
+
+			.score {
+				display: flex;
+				align-items: center;
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				height: 1px;
+				bottom: -5px;
+				left: -5px;
+				width: calc(100% + 10px);
+				background-color: #ff1d30;
+			}
+		}
+
+		
+		.map-stats {
+			display: flex;
+			align-items: center;
+			column-gap: 10px;
+			&__result {
+				padding: 3px;
+				font-weight: 700;
+			}
+			&__result.victory {
+				background-color: rgb(80, 219, 15);
+			}
+			&__result.defeat {
+				background-color: rgb(219, 46, 15);
+			}
+			&__result.draw {
+				background-color: rgb(87, 87, 87);
+			}
+		}
+
+		.player-stats {
+			display: flex;
+			justify-content: center;
+			align-items: flex-start;
+
+			&-stat {
+				padding: 5px 10px;
+				row-gap: 10px;
+				display: grid;
+				grid-template-columns: 150px 150px;
+				p {
+				}
+			}
+
+			img {
+				max-width: 100px;
+			}
+		}
+	}
+}

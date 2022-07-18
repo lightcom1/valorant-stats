@@ -1,0 +1,43 @@
+.account-mmr {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	
+	color: #fff;
+
+	//animation: fadeInAnimation ease 1s forwards 1;
+
+	@keyframes fadeInAnimation {
+		0% {
+			opacity: 0;
+			transform: translateX(-10%);
+		}
+		100% {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	&-card {
+		padding: 10px;
+		background-color: rgba(15, 25, 35, 0.95);
+
+		&-data {
+			margin-bottom: 5px;
+
+			.lost {
+				font-weight: 700;
+				padding: 0 3px;
+				border-radius: 3px;
+				background-color: rgb(187, 50, 26);
+			}
+			.won {
+				font-weight: 700;
+				padding: 0 3px;
+				border-radius: 3px;
+				background-color: rgb(26, 187, 34);
+			}
+		}
+	}
+}
