@@ -8,6 +8,11 @@
 	width: 48px;
 	height: 48px;
 	color: #fff;
+
+	@media screen and (max-width: 500px) {
+		left: calc(100% - 50px);
+		top: -53px;
+	}
 }
 .loader.details {
 	position: static;

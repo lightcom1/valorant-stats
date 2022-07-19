@@ -33,4 +33,4 @@ export const valorantApi = createApi({
 	}),
 });
 
-export const { useLazyGetAccDataQuery, useGetAccDataQuery, useLazyGetMmrDataQuery, useLazyGetMatchHistoryDataQuery } = valorantApi;
+export const { useLazyGetAccDataQuery, useGetAccDataQuery, useGetMmrDataQuery, useGetMatchHistoryDataQuery } = valorantApi;

@@ -571,11 +571,11 @@ export interface Kill {
 }
 
 export interface HistoryData {
-	metadata: Metadata | undefined;
-	players: Players | undefined;
-	teams: Teams | undefined;
-	rounds: Round[] | undefined;
-	kills: Kill[] | undefined;
+	metadata: Metadata ;
+	players: Players ;
+	teams: Teams ;
+	rounds: Round[] ;
+	kills: Kill[] ;
 }
 
 export interface RankedHistoryResponse<T> {

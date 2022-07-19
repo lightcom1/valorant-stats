@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/dist/query';
+import { matchReducer } from './valorant/matchData.slice';
 import { valorantApi } from './valorant/valorant.api';
 import { accountReducer } from './valorant/valorant.slice';
 
@@ -7,10 +7,9 @@ export const store = configureStore({
 	reducer: {
 		[valorantApi.reducerPath]: valorantApi.reducer,
 		account: accountReducer,
+		matches: matchReducer,
 	},
 
 });
-
-setupListeners(store.dispatch)
 
 export type RootState = ReturnType<typeof store.getState>

@@ -12,7 +12,6 @@ const AccountMMR: React.FC<IMmrData> = ({
 
 	const isLastGameLost = mmr_change_to_last_game! < 0 ? 'lost' : 'won';
 
-
 	return (
 		<div className='account-mmr'>
 			<div className='account-mmr-card'>
@@ -20,7 +19,7 @@ const AccountMMR: React.FC<IMmrData> = ({
 				<p className='account-mmr-card-data'>RR points: {ranking_in_tier}</p>
 				<p className='account-mmr-card-data'>Elo: {elo}</p>
 				<p className='account-mmr-card-data'>Tier: {currenttier}</p>
-				<p className='account-mmr-card-data'>Earned in last match: <span className={isLastGameLost}>{mmr_change_to_last_game}</span></p>
+				<p className='account-mmr-card-data'>Last match result: <span className={isLastGameLost}>{mmr_change_to_last_game}</span></p>
 			</div>
 		</div>
 	);

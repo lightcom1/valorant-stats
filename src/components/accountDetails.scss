@@ -5,6 +5,12 @@
 	margin: 0 auto;
 	width: fit-content;
 	color: #ff1d30;
+
+	@media screen and (max-width: 500px) {
+		width: 300px;
+		line-height: 30px;
+		font-size: 1.7rem;
+	}
 }
 
 .account-details {
@@ -23,6 +29,9 @@
 		justify-content: space-between;
 		align-items: flex-start;
 
+		@media screen and (max-width: 500px) {
+			font-size: 1.7rem;
+		}
 		.name-region {
 			display: flex;
 			flex-direction: column;
@@ -35,6 +44,7 @@
 				padding: 3px;
 			}
 		}
+		
 		.account-level {
 			border: 1px solid #fff;
 			background-color: rgba(19, 35, 51, 0.95);
@@ -44,14 +54,25 @@
 		}
 	}
 	
+	@media screen and (max-width: 500px) {
+		img {
+			object-fit: cover;
+			width: 100%;
+			height: 120px;
+		}
+	}
 }
 
 .nav {
-	padding-top: 20px;
+	margin-top: 20px;
 	margin-bottom: 10px;
 	display: flex;
 	justify-content: center;
 	column-gap: 20px;
+
+	@media screen and (max-width: 500px) {
+		padding: 0 10px;
+	}
 
 	&-btn {
 		position: relative;
@@ -66,7 +87,7 @@
 			content: '';
 			position: absolute;
 			background-color: rgba(19, 35, 51, 0.95);
-			width: 110%;
+			width: 130%;
 			height: 100%;
 			top: 0;
 			left: 0;
@@ -80,6 +101,10 @@
 		span {
 			position: relative;
 			z-index: 2;
+		}
+
+		@media screen and (max-width: 500px) {
+			font-size: 1.5rem;
 		}
 	}
 }

@@ -1,42 +1,39 @@
 import { useAppSelector } from '../hooks/redux';
 import {
 	useGetAccDataQuery,
-	useLazyGetMatchHistoryDataQuery,
-	useLazyGetMmrDataQuery,
+	useGetMatchHistoryDataQuery,
+	useGetMmrDataQuery,
 } from '../store/valorant/valorant.api';
 import './accountDetails.scss';
 import './loader.scss';
 import AccountMMR from './AccountMMR';
 import AccountMatchHistory from './AccountMatchHistory';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTransition, animated } from 'react-spring';
+import { useActions } from '../hooks/actions';
 
 const AccountDetails: React.FC = () => {
 	const { username, tag } = useAppSelector(state => state.account);
 
 	const { isLoading, isError, data } = useGetAccDataQuery(`${username}#${tag}`);
 
-	const [
-		fetchMmrData,
-		{ isLoading: isMmrLoading, isError: isMmrError, data: mmrData },
-	] = useLazyGetMmrDataQuery();
+	const {
+		isLoading: isMmrLoading,
+		isError: isMmrError,
+		data: mmrData,
+	} = useGetMmrDataQuery(`${username}#${tag}`);
 
-	const [
-		fetchMatchHistoryData,
-		{
-			isLoading: isMatchHistoryLoading,
-			isError: isMatchHistoryError,
-			data: matchHistoryData,
-		},
-	] = useLazyGetMatchHistoryDataQuery();
+	const {
+		isLoading: isMatchHistoryLoading,
+		isError: isMatchHistoryError,
+		data: matchHistoryData,
+	} = useGetMatchHistoryDataQuery(`${username}#${tag}`);
 
 	const handleMmrDataClick = () => {
-		fetchMmrData(`${username}#${tag}`);
 		setShowMatchHistoryData(false);
 		setShowMmrData(!showMmrData);
 	};
 	const handleMatchHistoryDataClick = () => {
-		fetchMatchHistoryData(`${username}#${tag}`);
 		setShowMmrData(false);
 		setShowMatchHistoryData(!showMatchHistoryData);
 	};
@@ -72,6 +69,13 @@ const AccountDetails: React.FC = () => {
 			x: 100,
 		},
 	});
+
+	const { addMatchData } = useActions();
+	useEffect(() => {
+		if (!isMatchHistoryLoading && matchHistoryData![0].players) {
+			matchHistoryData!.map(match => 	addMatchData({...match, username}));
+		}
+	}, [matchHistoryData]);
 
 	return (
 		<>
@@ -109,6 +113,7 @@ const AccountDetails: React.FC = () => {
 				{transitionMmr(
 					(style, item) =>
 						!isMmrLoading &&
+						!isMmrError &&
 						item && (
 							<animated.div style={style}>
 								<AccountMMR {...mmrData} />
@@ -123,9 +128,11 @@ const AccountDetails: React.FC = () => {
 				{transitionMatchHistory(
 					(style, item) =>
 						!isMatchHistoryLoading &&
+						!isMatchHistoryError &&
+						matchHistoryData![0].metadata &&
 						item && (
 							<animated.div style={style}>
-								<AccountMatchHistory matchData={matchHistoryData}/>
+								<AccountMatchHistory />
 							</animated.div>
 						)
 				)}
