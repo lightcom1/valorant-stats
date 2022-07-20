@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './input.scss';
 import './loader.scss';
 import { useActions } from './../hooks/actions';
-import videoV from '../assets/VALORANT_ANNO22_SHATTERED_16x9_27s.mp4'
+import videoV from '../assets/VALORANT_ANNO22_SHATTERED_16x9_27s.mp4';
 
 const Input = () => {
 	const [nickname, setNickname] = useState('');
@@ -39,27 +39,17 @@ const Input = () => {
 		const username = JSON.parse(localStorage.getItem('name')!) ?? '';
 		const tag = JSON.parse(localStorage.getItem('tag')!) ?? '';
 
-		setNickname(`${username}#${tag}`);
+		username && tag && setNickname(`${username}#${tag}`);
 	}, []);
-
 
 	return (
 		<div className='input-wrapper'>
-			<video
-				autoPlay
-				preload='true'
-				muted
-				loop
-				className='main-video'
-				>
-				<source
-					src={videoV}
-					type='video/mp4'
-				/>
+			<video autoPlay preload='true' muted loop className='main-video'>
+				<source src={videoV} type='video/mp4' />
 			</video>
 			{isError && (
 				<p className='warning-text'>
-					Invalid nickname and/or tag "username#tag" <br/>
+					Invalid nickname and/or tag "username#tag" <br />
 					Also if you have AdBlock you need to disable it
 				</p>
 			)}

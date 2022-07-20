@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const Card: React.FC<any> = ({ metadata, player, teams }: any) => {
 	function convertMsToMinutesSeconds(milliseconds: number) {
@@ -36,16 +36,31 @@ const Card: React.FC<any> = ({ metadata, player, teams }: any) => {
 		'Dec',
 	];
 
-	const KD = (player!?.stats.kills / player!?.stats.deaths).toFixed(1)
+	const KD = (player!?.stats.kills / player!?.stats.deaths).toFixed(1);
+	const KDA = (
+		(player!?.stats.kills + player!?.stats.assists) /
+		player!?.stats.deaths
+	).toFixed(1);
+	const HsRate = (
+		(player!?.stats.headshots /
+			(player!?.stats.headshots +
+				player!?.stats.bodyshots +
+				player!?.stats.legshots)) *
+		100
+	).toFixed(1);
 
 	return (
 		<div className='match'>
 			<div className='match-data'>
 				<div className='match-data-score'>
-					<span className={`rounds__won ${isWon && 'victory'} ${isDraw && 'draw'}`}>
+					<span
+						className={`rounds__won ${isWon && 'victory'} ${isDraw && 'draw'}`}>
 						{playerTeam === 'Blue' ? blueWon : redWon}
 					</span>
-					<span className={`rounds__lost ${!isWon && 'defeat'} ${isDraw && 'draw'}`}>
+					<span
+						className={`rounds__lost ${!isWon && 'defeat'} ${
+							isDraw && 'draw'
+						}`}>
 						{playerTeam === 'Blue' ? redWon : blueWon}
 					</span>
 				</div>
@@ -77,16 +92,12 @@ const Card: React.FC<any> = ({ metadata, player, teams }: any) => {
 					<p className='kills'>Kills: {player!?.stats.kills}</p>
 					<p className='assists'>Assists: {player!?.stats.assists}</p>
 					<p className='deaths'>Deaths: {player!?.stats.deaths}</p>
-					<p className='head'>Headshots: {player!?.stats.headshots}</p>
+					<p className='hs'>HS%: {HsRate}%</p>
 					<p className='kd'>
-						K/D: <span className={`${+KD < 1 ? 'less': ''}`}>{KD}</span>
+						K/D: <span className={`${+KD < 1 ? 'less' : ''}`}>{KD}</span>
 					</p>
-					<p className='hs'>
-						HS%:{' '}
-						{((player!?.stats.headshots / player!?.stats.kills) * 100).toFixed(
-							2
-						)}
-						%
+					<p className='kd'>
+						KDA: <span className={`${+KDA < 1 ? 'less' : ''}`}>{KDA}</span>
 					</p>
 				</div>
 			</div>

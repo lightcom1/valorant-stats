@@ -5,6 +5,7 @@
 	align-items: center;
 	position: relative;
 	background-color: rgba(15, 25, 35, 0.45);
+
 	@media screen and (max-width: 500px) {
 		flex-direction: column;
 	}
@@ -42,6 +43,9 @@
 
 		&::placeholder {
 			color: rgb(209, 209, 209);
+			@media screen and (max-width: 500px) {
+				font-size: 1.2rem;
+			}
 		}
 
 		@media screen and (max-width: 500px) {

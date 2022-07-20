@@ -26,6 +26,7 @@
 
 		@media screen and (max-width: 500px) {
 			width: 100%;
+			padding-bottom: 3px;
 			font-size: 1.2rem;
 		}
 
@@ -160,7 +161,7 @@
 				max-width: 100px;
 
 				@media screen and (max-width: 500px) {
-					max-width: 90px;
+					max-width: 95px;
 				}
 			}
 		}
