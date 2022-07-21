@@ -24,8 +24,6 @@ const AccountMMR: React.FC<IMmrData> = ({
 		}
 	}, [matchData]);
 
-	console.log('playerStats: ', playerStats);
-
 	//HSRate calculations
 	const bodyShots = playerStats
 		.map(match => match.stats.bodyshots)

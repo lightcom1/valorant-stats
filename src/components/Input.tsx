@@ -8,11 +8,11 @@ import videoV from '../assets/VALORANT_ANNO22_SHATTERED_16x9_27s.mp4';
 
 const Input = () => {
 	const [nickname, setNickname] = useState('');
-
-	let navigate = useNavigate();
-	const [fetchAccount, { isLoading, isError, data }] = useLazyGetAccDataQuery();
-
 	const { addData } = useActions();
+
+	const [fetchAccount, { isLoading, isError, data }] = useLazyGetAccDataQuery();
+	
+	let navigate = useNavigate();
 
 	const findPlayer = () => {
 		if (nickname.length === 0) return false;
@@ -32,7 +32,7 @@ const Input = () => {
 
 	useEffect(() => {
 		data?.name && addData(nickname);
-		data?.name && navigate('../account-details');
+		data?.name && navigate('/account-details');
 	}, [data]);
 
 	useEffect(() => {
@@ -50,7 +50,7 @@ const Input = () => {
 			{isError && (
 				<p className='warning-text'>
 					Invalid nickname and/or tag "username#tag" <br />
-					Also if you have AdBlock you need to disable it
+					Also if you have AdBlock you need to disable it and reload the page
 				</p>
 			)}
 			<input

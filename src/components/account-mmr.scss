@@ -4,11 +4,13 @@
 	left: 50%;
 	transform: translateX(-50%);
 	color: #fff;
-display: flex;
+	display: flex;
+
 	@media screen and (max-width: 500px) {
 		padding: 0 10px;
 		margin-top: 10px;
 		width: 100%;
+		display: block;
 		font-size: 1.8rem;
 	}
 
