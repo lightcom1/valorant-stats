@@ -25,6 +25,15 @@
 		&-data {
 			margin-bottom: 5px;
 
+			&.rank {
+				display: flex;
+				align-items: center;
+				column-gap: 10px;
+
+				.player-rank {
+					max-width: 50px;
+				}
+			}
 			.lost {
 				font-weight: 700;
 				padding: 0 3px;
@@ -52,19 +61,16 @@
 		}
 	}
 
-
 	.fav-agent {
 		@media screen and (max-width: 500px) {
 			display: none;
 		}
 	}
 
-	.fav-agent img{
+	.fav-agent img {
 		position: absolute;
 		bottom: -70px;
 		transform: scale(140%);
 		max-width: 600px;
-
-
 	}
 }

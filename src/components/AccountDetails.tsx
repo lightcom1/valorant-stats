@@ -53,16 +53,19 @@ const AccountDetails: React.FC = () => {
 			opacity: 0,
 			x: 100,
 		},
-	}
+	};
 
 	const [showMmrData, setShowMmrData] = useState(false);
 	const transitionMmr = useTransition(showMmrData, transitionOptions);
 
 	const [showMatchHistoryData, setShowMatchHistoryData] = useState(false);
-	const transitionMatchHistory = useTransition(showMatchHistoryData, transitionOptions);
+	const transitionMatchHistory = useTransition(
+		showMatchHistoryData,
+		transitionOptions
+	);
 
 	const { addMatchData } = useActions();
-	
+
 	useEffect(() => {
 		if (!isMatchHistoryLoading && matchHistoryData![0].players) {
 			matchHistoryData!.map(match => addMatchData({ ...match, username }));

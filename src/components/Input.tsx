@@ -8,10 +8,10 @@ import videoV from '../assets/VALORANT_ANNO22_SHATTERED_16x9_27s.mp4';
 
 const Input = () => {
 	const [nickname, setNickname] = useState('');
-	const { addData } = useActions();
+	const { addData, reset } = useActions();
 
 	const [fetchAccount, { isLoading, isError, data }] = useLazyGetAccDataQuery();
-	
+
 	let navigate = useNavigate();
 
 	const findPlayer = () => {
@@ -31,6 +31,10 @@ const Input = () => {
 	};
 
 	useEffect(() => {
+		reset();
+	}, []);
+
+	useEffect(() => {
 		data?.name && addData(nickname);
 		data?.name && navigate('/account-details');
 	}, [data]);
@@ -44,7 +48,13 @@ const Input = () => {
 
 	return (
 		<div className='input-wrapper'>
-			<video autoPlay preload='true' muted loop playsInline className='main-video'>
+			<video
+				autoPlay
+				preload='true'
+				muted
+				loop
+				playsInline
+				className='main-video'>
 				<source src={videoV} type='video/mp4' />
 			</video>
 			{isError && (

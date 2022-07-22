@@ -77,8 +77,9 @@ const AccountMMR: React.FC<IMmrData> = ({
 	return (
 		<div className='account-mmr'>
 			<div className='account-mmr-card'>
-				<p className='account-mmr-card-data'>
-					Current rank: {currenttierpatched}
+				<p className='account-mmr-card-data rank'>
+					Rank: {currenttierpatched}
+					<img className='player-rank' src={`https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/${currenttier}.png`} alt="Rank" />
 				</p>
 				<p className='account-mmr-card-data'>RR points: {ranking_in_tier}</p>
 				<p className='account-mmr-card-data'>Elo: {elo}</p>

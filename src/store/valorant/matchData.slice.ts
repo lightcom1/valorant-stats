@@ -20,6 +20,8 @@ export const matchSlice = createSlice({
 
 			state.push(data);
 		},
+
+		reset: () => initialState,
 	},
 });
 
