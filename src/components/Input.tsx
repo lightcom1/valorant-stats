@@ -44,7 +44,7 @@ const Input = () => {
 
 	return (
 		<div className='input-wrapper'>
-			<video autoPlay preload='true' muted loop className='main-video'>
+			<video autoPlay preload='true' muted loop playsInline className='main-video'>
 				<source src={videoV} type='video/mp4' />
 			</video>
 			{isError && (

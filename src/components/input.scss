@@ -10,7 +10,9 @@
 		flex-direction: column;
 	}
 	.main-video {
-		position: absolute;
+		position: fixed;
+		min-width: 100%;
+		min-height: 100%;
 		z-index: -1;
 	}
 

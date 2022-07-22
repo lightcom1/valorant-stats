@@ -80,7 +80,6 @@ html {
 	height: 100%;
 }
 body {
-	min-height: 100vh;
 	touch-action: none;
 	-ms-touch-action: none;
 	font-size: 2rem;
