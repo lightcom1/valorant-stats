@@ -69,6 +69,8 @@
 
 	.fav-agent img {
 		position: absolute;
+		pointer-events: none;
+		right: -250%;
 		bottom: -70px;
 		transform: scale(140%);
 		max-width: 600px;

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RankedHistoryResponse } from '../../models/matchHistory';
+import { HistoryResponse } from '../../models/matchHistory';
 import { AccountData, IMmrData, ServerResponse, MmrResponse } from './../../models/models';
 import { HistoryData } from './../../models/matchHistory';
 
@@ -27,10 +27,17 @@ export const valorantApi = createApi({
 			query: (search: string) => ({
 				url: `v3/matches/eu/${search.split('#').join('/')}?filter=competitive`,
 			}),
-			transformResponse: (response: RankedHistoryResponse<HistoryData>) =>
+			transformResponse: (response: HistoryResponse<HistoryData>) =>
+				response.data,
+		}),
+		getUnrankedMatchHistoryData: build.query<HistoryData[], string>({
+			query: (search: string) => ({
+				url: `v3/matches/eu/${search.split('#').join('/')}?filter=unrated`,
+			}),
+			transformResponse: (response: HistoryResponse<HistoryData>) =>
 				response.data,
 		}),
 	}),
 });
 
-export const { useLazyGetAccDataQuery, useGetAccDataQuery, useGetMmrDataQuery, useGetMatchHistoryDataQuery } = valorantApi;
+export const { useLazyGetAccDataQuery, useGetAccDataQuery, useGetMmrDataQuery, useGetMatchHistoryDataQuery, useGetUnrankedMatchHistoryDataQuery } = valorantApi;

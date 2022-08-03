@@ -578,7 +578,7 @@ export interface HistoryData {
 	kills: Kill[] ;
 }
 
-export interface RankedHistoryResponse<T> {
+export interface HistoryResponse<T> {
 	status: number;
 	data: T[];
 }

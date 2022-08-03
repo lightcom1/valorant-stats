@@ -8,7 +8,7 @@ import videoV from '../assets/VALORANT_ANNO22_SHATTERED_16x9_27s.mp4';
 
 const Input = () => {
 	const [nickname, setNickname] = useState('');
-	const { addData, reset } = useActions();
+	const { addData, reset, resetUnrated } = useActions();
 
 	const [fetchAccount, { isLoading, isError, data }] = useLazyGetAccDataQuery();
 
@@ -31,6 +31,7 @@ const Input = () => {
 	};
 
 	useEffect(() => {
+		resetUnrated();
 		reset();
 	}, []);
 

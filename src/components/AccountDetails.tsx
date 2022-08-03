@@ -3,6 +3,7 @@ import {
 	useGetAccDataQuery,
 	useGetMatchHistoryDataQuery,
 	useGetMmrDataQuery,
+	useGetUnrankedMatchHistoryDataQuery,
 } from '../store/valorant/valorant.api';
 import './accountDetails.scss';
 import './loader.scss';
@@ -12,6 +13,7 @@ import React, { useEffect, useState } from 'react';
 import { useTransition, animated } from 'react-spring';
 import { useActions } from '../hooks/actions';
 import { useNavigate } from 'react-router-dom';
+import AccountUnratedMatchHistory from './AccountUnratedMatchHistory';
 
 const AccountDetails: React.FC = () => {
 	const { username, tag } = useAppSelector(state => state.account);
@@ -31,13 +33,32 @@ const AccountDetails: React.FC = () => {
 		data: matchHistoryData,
 	} = useGetMatchHistoryDataQuery(`${username}#${tag}`);
 
+	const {
+		isLoading: isUnratedMatchHistoryLoading,
+		isError: isUnratedMatchHistoryError,
+		data: unratedMatchHistoryData,
+	} = useGetUnrankedMatchHistoryDataQuery(`${username}#${tag}`);
+
 	const handleMmrDataClick = () => {
-		setShowMatchHistoryData(false);
-		setShowMmrData(!showMmrData);
+		if (mmrData!?.ranking_in_tier) {
+			setShowMatchHistoryData(false);
+			setShowUnratedMatchHistoryData(false);
+			setShowMmrData(!showMmrData);
+		}
 	};
 	const handleMatchHistoryDataClick = () => {
-		setShowMmrData(false);
-		setShowMatchHistoryData(!showMatchHistoryData);
+		if (matchHistoryData!?.length) {
+			setShowMmrData(false);
+			setShowUnratedMatchHistoryData(false);
+			setShowMatchHistoryData(!showMatchHistoryData);
+		}
+	};
+	const handleUnratedMatchHistoryDataClick = () => {
+		if (unratedMatchHistoryData!?.length) {
+			setShowMmrData(false);
+			setShowMatchHistoryData(false);
+			setShowUnratedMatchHistoryData(!showUnratedMatchHistoryData);
+		}
 	};
 
 	const transitionOptions = {
@@ -64,13 +85,36 @@ const AccountDetails: React.FC = () => {
 		transitionOptions
 	);
 
-	const { addMatchData } = useActions();
+	const [showUnratedMatchHistoryData, setShowUnratedMatchHistoryData] =
+		useState(false);
+	const transitionUnratedMatchHistory = useTransition(
+		showUnratedMatchHistoryData,
+		transitionOptions
+	);
+
+	const { addMatchData, addUnratedMatchData } = useActions();
 
 	useEffect(() => {
-		if (!isMatchHistoryLoading && matchHistoryData![0].players) {
+		if (
+			matchHistoryData!?.length &&
+			!isMatchHistoryLoading &&
+			matchHistoryData![0]?.players
+		) {
 			matchHistoryData!.map(match => addMatchData({ ...match, username }));
 		}
 	}, [matchHistoryData]);
+
+	useEffect(() => {
+		if (
+			unratedMatchHistoryData!?.length &&
+			!isUnratedMatchHistoryLoading &&
+			unratedMatchHistoryData![0]?.players
+		) {
+			unratedMatchHistoryData!.map(match =>
+				addUnratedMatchData({ ...match, username })
+			);
+		}
+	}, [unratedMatchHistoryData]);
 
 	return (
 		<>
@@ -97,16 +141,23 @@ const AccountDetails: React.FC = () => {
 			)}
 
 			<nav className='nav'>
-				{!isMmrLoading && (
+				{!isMmrLoading && mmrData!?.ranking_in_tier && (
 					<button className='nav-btn' onClick={() => handleMmrDataClick()}>
 						<span>MMR Data</span>
 					</button>
 				)}
-				{!isMatchHistoryLoading && (
+				{!isMatchHistoryLoading && matchHistoryData!?.length > 0 && (
 					<button
 						className='nav-btn'
 						onClick={() => handleMatchHistoryDataClick()}>
-						<span>Ranked matches history</span>
+						<span>Ranked matches</span>
+					</button>
+				)}
+				{!isUnratedMatchHistoryLoading && unratedMatchHistoryData!?.length > 0 && (
+					<button
+						className='nav-btn'
+						onClick={() => handleUnratedMatchHistoryDataClick()}>
+						<span>Unrated matches</span>
 					</button>
 				)}
 			</nav>
@@ -122,6 +173,7 @@ const AccountDetails: React.FC = () => {
 					(style, item) =>
 						!isMmrLoading &&
 						!isMmrError &&
+						mmrData!?.ranking_in_tier &&
 						item && (
 							<animated.div style={style}>
 								<AccountMMR {...mmrData} />
@@ -139,10 +191,33 @@ const AccountDetails: React.FC = () => {
 					(style, item) =>
 						!isMatchHistoryLoading &&
 						!isMatchHistoryError &&
+						matchHistoryData!?.length > 0 &&
 						matchHistoryData![0].metadata &&
 						item && (
 							<animated.div style={style}>
 								<AccountMatchHistory />
+							</animated.div>
+						)
+				)}
+
+				{isUnratedMatchHistoryError && (
+					<p className='warning-text'>
+						Error while loading unrated match history... Try again later
+					</p>
+				)}
+
+				{isUnratedMatchHistoryLoading && (
+					<span className='loader details'></span>
+				)}
+				{transitionUnratedMatchHistory(
+					(style, item) =>
+						!isUnratedMatchHistoryLoading &&
+						!isUnratedMatchHistoryError &&
+						unratedMatchHistoryData!?.length > 0 &&
+						unratedMatchHistoryData![0].metadata &&
+						item && (
+							<animated.div style={style}>
+								<AccountUnratedMatchHistory />
 							</animated.div>
 						)
 				)}
