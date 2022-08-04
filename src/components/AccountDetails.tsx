@@ -173,7 +173,7 @@ const AccountDetails: React.FC = () => {
 					(style, item) =>
 						!isMmrLoading &&
 						!isMmrError &&
-						mmrData!?.ranking_in_tier &&
+						mmrData!?.currenttierpatched &&
 						item && (
 							<animated.div style={style}>
 								<AccountMMR {...mmrData} />
