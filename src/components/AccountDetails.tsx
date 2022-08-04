@@ -40,7 +40,7 @@ const AccountDetails: React.FC = () => {
 	} = useGetUnrankedMatchHistoryDataQuery(`${username}#${tag}`);
 
 	const handleMmrDataClick = () => {
-		if (mmrData!?.ranking_in_tier) {
+		if (mmrData!?.currenttierpatched) {
 			setShowMatchHistoryData(false);
 			setShowUnratedMatchHistoryData(false);
 			setShowMmrData(!showMmrData);
