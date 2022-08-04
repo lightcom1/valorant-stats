@@ -141,7 +141,7 @@ const AccountDetails: React.FC = () => {
 			)}
 
 			<nav className='nav'>
-				{!isMmrLoading && mmrData!?.ranking_in_tier && (
+				{!isMmrLoading && mmrData!?.currenttierpatched && (
 					<button className='nav-btn' onClick={() => handleMmrDataClick()}>
 						<span>MMR Data</span>
 					</button>
