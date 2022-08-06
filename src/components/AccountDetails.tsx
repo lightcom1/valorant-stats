@@ -14,6 +14,7 @@ import { useTransition, animated } from 'react-spring';
 import { useActions } from '../hooks/actions';
 import { useNavigate } from 'react-router-dom';
 import AccountUnratedMatchHistory from './AccountUnratedMatchHistory';
+import AccountUnratedMMR from './AccountUnratedMMR';
 
 const AccountDetails: React.FC = () => {
 	const { username, tag } = useAppSelector(state => state.account);
@@ -40,25 +41,19 @@ const AccountDetails: React.FC = () => {
 	} = useGetUnrankedMatchHistoryDataQuery(`${username}#${tag}`);
 
 	const handleMmrDataClick = () => {
-		if (mmrData!?.currenttierpatched) {
-			setShowMatchHistoryData(false);
-			setShowUnratedMatchHistoryData(false);
-			setShowMmrData(!showMmrData);
-		}
+		setShowMatchHistoryData(false);
+		setShowUnratedMatchHistoryData(false);
+		setShowMmrData(!showMmrData);
 	};
 	const handleMatchHistoryDataClick = () => {
-		if (matchHistoryData!?.length) {
-			setShowMmrData(false);
-			setShowUnratedMatchHistoryData(false);
-			setShowMatchHistoryData(!showMatchHistoryData);
-		}
+		setShowMmrData(false);
+		setShowUnratedMatchHistoryData(false);
+		setShowMatchHistoryData(!showMatchHistoryData);
 	};
 	const handleUnratedMatchHistoryDataClick = () => {
-		if (unratedMatchHistoryData!?.length) {
-			setShowMmrData(false);
-			setShowMatchHistoryData(false);
-			setShowUnratedMatchHistoryData(!showUnratedMatchHistoryData);
-		}
+		setShowMmrData(false);
+		setShowMatchHistoryData(false);
+		setShowUnratedMatchHistoryData(!showUnratedMatchHistoryData);
 	};
 
 	const transitionOptions = {
@@ -141,9 +136,9 @@ const AccountDetails: React.FC = () => {
 			)}
 
 			<nav className='nav'>
-				{!isMmrLoading && mmrData!?.currenttierpatched && (
+				{!isMmrLoading && (
 					<button className='nav-btn' onClick={() => handleMmrDataClick()}>
-						<span>MMR Data</span>
+						<span>{mmrData!?.currenttierpatched ? 'MMR Data' : 'Unrated MMR Data'}</span>
 					</button>
 				)}
 				{!isMatchHistoryLoading && matchHistoryData!?.length > 0 && (
@@ -173,10 +168,13 @@ const AccountDetails: React.FC = () => {
 					(style, item) =>
 						!isMmrLoading &&
 						!isMmrError &&
-						mmrData!?.currenttierpatched &&
 						item && (
 							<animated.div style={style}>
-								<AccountMMR {...mmrData} />
+								{mmrData!?.currenttierpatched ? (
+									<AccountMMR {...mmrData} />
+								) : (
+									<AccountUnratedMMR />
+								)}
 							</animated.div>
 						)
 				)}
