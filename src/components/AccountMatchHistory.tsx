@@ -1,11 +1,7 @@
 import './account-matches.scss';
 import React from 'react';
 import Card from './Card';
-import {
-	AllPlayer,
-	Metadata,
-	Teams,
-} from './../models/matchHistory';
+import { AllPlayer, Metadata, Teams } from './../models/matchHistory';
 import { useAppSelector } from '../hooks/redux';
 
 interface MatchState {

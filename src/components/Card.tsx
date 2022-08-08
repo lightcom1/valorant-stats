@@ -1,7 +1,13 @@
-import React from 'react';
+import React, {memo} from 'react';
+import { AllPlayer, Metadata, Teams } from './../models/matchHistory';
 
-const Card: React.FC<any> = ({ metadata, player, teams }: any) => {
-	
+interface MatchState {
+	metadata: Metadata;
+	player: AllPlayer;
+	teams: Teams;
+}
+
+const Card: React.FC<MatchState> = ({ metadata, player, teams }: MatchState) => {
 	function convertMsToMinutesSeconds(milliseconds: number) {
 		const minutes = Math.floor(milliseconds! / 60000);
 		const seconds = Math.floor((milliseconds! % 60000) / 1000);
@@ -11,14 +17,18 @@ const Card: React.FC<any> = ({ metadata, player, teams }: any) => {
 			: `${minutes}:${seconds.toString().padStart(2, '0')}`;
 	}
 
+	//Match result
 	const playerTeam = player?.team;
 	const isRedWon = teams?.red.has_won;
 	const isDraw = !teams?.red.has_won && !teams?.blue.has_won;
 	const isWon = playerTeam === 'Blue' ? !isRedWon : isRedWon;
 
+	//Each team won rounds
 	const redWon = teams?.red.rounds_won;
 	const blueWon = teams?.blue.rounds_won;
+	const allRounds = redWon + blueWon;
 
+	//Match date
 	const time = new Date(`${metadata?.game_start_patched}`);
 	let hours = time.getHours() + 1;
 	const AmOrPm = hours >= 12 ? 'PM' : 'AM';
@@ -37,6 +47,7 @@ const Card: React.FC<any> = ({ metadata, player, teams }: any) => {
 		'Dec',
 	];
 
+	//Player stats
 	const KD = (player!?.stats.kills / player!?.stats.deaths).toFixed(1);
 	const KDA = (
 		(player!?.stats.kills + player!?.stats.assists) /
@@ -49,6 +60,8 @@ const Card: React.FC<any> = ({ metadata, player, teams }: any) => {
 				player!?.stats.legshots)) *
 		100
 	).toFixed(1);
+	const ADR = Math.round(player!?.damage_made / allRounds);
+	const ACS = Math.round(player!?.stats.score / allRounds);
 
 	return (
 		<div className='match'>
@@ -100,10 +113,22 @@ const Card: React.FC<any> = ({ metadata, player, teams }: any) => {
 					<p className='kd'>
 						KDA: <span className={`${+KDA < 1 ? 'less' : ''}`}>{KDA}</span>
 					</p>
+					<p className='acs'>
+						ACS:{' '}
+						<span className={`${ACS > 220 ? 'more' : ACS < 140 ? 'less' : ''}`}>
+							{ACS}
+						</span>
+					</p>
+					<p className='adr'>
+						ADR:{' '}
+						<span className={`${ADR > 180 ? 'more' : ADR < 120 ? 'less' : ''}`}>
+							{ADR}
+						</span>
+					</p>
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default Card;
+export default memo(Card);

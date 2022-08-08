@@ -54,6 +54,20 @@ const AccountMMR: React.FC<IMmrData> = ({
 	const KD = (kills / deaths).toFixed(2);
 	const KDA = ((kills + assists) / deaths).toFixed(2);
 
+	//ACS & ADR calculations
+	const rounds = matchData
+		.map(match => match.teams.blue.rounds_lost + match.teams.blue.rounds_won)
+		.reduce((a, b) => a + b, 0);
+	const score = playerStats
+		.map(match => match.stats.score)
+		.reduce((a, b) => a + b, 0);
+	const damage = playerStats
+		.map(match => match.damage_made)
+		.reduce((a, b) => a + b, 0);
+
+	const ACS = Math.round(score / rounds);
+	const ADR = Math.round(damage / rounds);
+
 	//Favorite agent calculations
 	const agents: any = playerStats
 		.map(match => match.character)
@@ -79,7 +93,11 @@ const AccountMMR: React.FC<IMmrData> = ({
 			<div className='account-mmr-card'>
 				<p className='account-mmr-card-data rank'>
 					Rank: {currenttierpatched}
-					<img className='player-rank' src={`https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/${currenttier}.png`} alt="Rank" />
+					<img
+						className='player-rank'
+						src={`https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/${currenttier}.png`}
+						alt='Rank'
+					/>
 				</p>
 				<p className='account-mmr-card-data'>RR points: {ranking_in_tier}</p>
 				<p className='account-mmr-card-data'>Elo: {elo}</p>
@@ -99,15 +117,25 @@ const AccountMMR: React.FC<IMmrData> = ({
 					<span className={`${+KDA < 1 ? 'less' : ''}`}> {KDA}</span>
 				</p>
 				<p className='account-mmr-card-data match'>
+					ACS:{' '}
+					<span
+						className={`${ACS > 210 ? '' : ACS < 130 ? 'less' : 'average'}`}>
+						{ACS}
+					</span>{' '}
+					ADR:
+					<span
+						className={`${ADR > 160 ? '' : ADR < 110 ? 'less' : 'average'}`}>
+						{' '}
+						{ADR}
+					</span>
+				</p>
+				<p className='account-mmr-card-data match'>
 					Favorite agent: {favAgent}
 				</p>
 			</div>
 
 			<div className='fav-agent'>
-				<img
-					src={favAgentImage}
-					alt='favorite agent'
-				/>
+				<img src={favAgentImage} alt='favorite agent' />
 			</div>
 		</div>
 	);

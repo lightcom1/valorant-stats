@@ -50,13 +50,18 @@
 			&.match {
 				text-indent: 15px;
 				margin-top: 10px;
-			}
 
-			&.match span {
-				color: rgb(26, 187, 34);
-			}
-			&.match span.less {
-				color: rgb(187, 50, 26);
+				span {
+					color: rgb(26, 187, 34);
+				}
+
+				span.less {
+					color: rgb(187, 50, 26);
+				}
+
+				span.average {
+					color: #cbb765;
+				}
 			}
 		}
 	}

@@ -5,10 +5,7 @@ import { AllPlayer } from './../models/matchHistory';
 
 const AccountUnratedMMR: React.FC = () => {
 	const matchData = useAppSelector(state => state.unratedMatches);
-	console.log('matchData: ', matchData);
-
 	const [playerStats, setPlayerStats] = useState<AllPlayer[]>([]);
-	console.log('playerStats: ', playerStats);
 
 	useEffect(() => {
 		if (matchData.length > 0) {
@@ -48,6 +45,20 @@ const AccountUnratedMMR: React.FC = () => {
 	const KD = (kills / deaths).toFixed(2);
 	const KDA = ((kills + assists) / deaths).toFixed(2);
 
+	//ACS & ADR calculations
+	const rounds = matchData
+		.map(match => match.teams.blue.rounds_lost + match.teams.blue.rounds_won)
+		.reduce((a, b) => a + b, 0);
+	const score = playerStats
+		.map(match => match.stats.score)
+		.reduce((a, b) => a + b, 0);
+	const damage = playerStats
+		.map(match => match.damage_made)
+		.reduce((a, b) => a + b, 0);
+
+	const ACS = Math.round(score / rounds);
+	const ADR = Math.round(damage / rounds);
+
 	//Favorite agent calculations
 	const agents: any = playerStats
 		.map(match => match.character)
@@ -82,15 +93,25 @@ const AccountUnratedMMR: React.FC = () => {
 					<span className={`${+KDA < 1 ? 'less' : ''}`}> {KDA}</span>
 				</p>
 				<p className='account-mmr-card-data match'>
+					ACS:{' '}
+					<span
+						className={`${ACS > 210 ? '' : ACS < 130 ? 'less' : 'average'}`}>
+						{ACS}
+					</span>{' '}
+					ADR:
+					<span
+						className={`${ADR > 160 ? '' : ADR < 110 ? 'less' : 'average'}`}>
+						{' '}
+						{ADR}
+					</span>
+				</p>
+				<p className='account-mmr-card-data match'>
 					Favorite agent: {favAgent}
 				</p>
 			</div>
 
 			<div className='fav-agent'>
-				<img
-					src={favAgentImage}
-					alt='favorite agent'
-				/>
+				<img src={favAgentImage} alt='favorite agent' />
 			</div>
 		</div>
 	);

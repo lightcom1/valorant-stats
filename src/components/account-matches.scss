@@ -155,10 +155,23 @@
 						color: rgb(219, 46, 15);
 					}
 				}
+				.acs,
+				.adr {
+					span {
+						color: #cbb765;
+					}
+					span.more {
+						color: rgb(70, 175, 22);
+					}
+					span.less {
+						color: rgb(219, 46, 15);
+					}
+				}
 			}
 
 			img {
 				max-width: 100px;
+				align-self: center;
 
 				@media screen and (max-width: 500px) {
 					max-width: 95px;
