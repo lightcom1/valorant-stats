@@ -16,7 +16,12 @@
 
 	&-card {
 		padding: 10px;
-		background-color: rgba(15, 25, 35, 0.95);
+		background-color: rgba(15, 25, 35, 0.8);
+		border-radius: 5px;
+		box-shadow: 0 8px 32px 0 rgba(37, 39, 75, 0.37);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+		border: 1px solid rgba(255, 255, 255, 0.18);
 
 		@media screen and (max-width: 500px) {
 			padding: 10px 7vw;
@@ -29,6 +34,7 @@
 				display: flex;
 				align-items: center;
 				column-gap: 10px;
+				margin-bottom: 10px;
 
 				.player-rank {
 					max-width: 50px;
@@ -38,13 +44,21 @@
 				font-weight: 700;
 				padding: 0 3px;
 				border-radius: 3px;
-				background-color: rgb(187, 50, 26);
+				background-color: rgb(187, 50, 26, 0.5);
+				box-shadow: 0 8px 32px 0 rgba(37, 39, 75, 0.37);
+				backdrop-filter: blur(4px);
+				-webkit-backdrop-filter: blur(4px);
+				border: 1px solid rgba(255, 255, 255, 0.18);
 			}
 			.won {
 				font-weight: 700;
 				padding: 0 3px;
 				border-radius: 3px;
-				background-color: rgb(26, 187, 34);
+				background-color: rgb(26, 187, 34, 0.5);
+				box-shadow: 0 8px 32px 0 rgba(37, 39, 75, 0.37);
+				backdrop-filter: blur(4px);
+				-webkit-backdrop-filter: blur(4px);
+				border: 1px solid rgba(255, 255, 255, 0.18);
 			}
 
 			&.match {
@@ -75,7 +89,7 @@
 	.fav-agent img {
 		position: absolute;
 		pointer-events: none;
-		right: -250%;
+		right: -200%;
 		top: 50%;
 		transform: scale(140%) translateY(-25%);
 		max-width: 600px;

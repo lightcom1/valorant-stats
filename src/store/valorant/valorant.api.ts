@@ -1,6 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HistoryResponse } from '../../models/matchHistory';
-import { AccountData, IMmrData, ServerResponse, MmrResponse } from './../../models/models';
+import {
+	AccountData,
+	IMmrData,
+	ServerResponse,
+	MmrResponse,
+	AccGamesData,
+	AccGamesDataResponse,
+} from './../../models/models';
 import { HistoryData } from './../../models/matchHistory';
 
 export const valorantApi = createApi({
@@ -16,12 +23,20 @@ export const valorantApi = createApi({
 			transformResponse: (response: ServerResponse<AccountData>) =>
 				response.data,
 		}),
+		getAccGamesData: build.query<AccGamesData, string>({
+			query: (search: string) => ({
+				url: `v2/mmr/eu/${search.split('#').join('/')}?filter=e5a1`,
+			}),
+			transformResponse: (response: AccGamesDataResponse<AccGamesData>) => ({
+				number_of_games: response.data.number_of_games,
+				wins: response.data.wins,
+			}),
+		}),
 		getMmrData: build.query<IMmrData, string>({
 			query: (search: string) => ({
 				url: `v1/mmr/eu/${search.split('#').join('/')}`,
 			}),
-			transformResponse: (response: MmrResponse<IMmrData>) =>
-				response.data,
+			transformResponse: (response: MmrResponse<IMmrData>) => response.data,
 		}),
 		getMatchHistoryData: build.query<HistoryData[], string>({
 			query: (search: string) => ({
@@ -40,4 +55,11 @@ export const valorantApi = createApi({
 	}),
 });
 
-export const { useLazyGetAccDataQuery, useGetAccDataQuery, useGetMmrDataQuery, useGetMatchHistoryDataQuery, useGetUnrankedMatchHistoryDataQuery } = valorantApi;
+export const {
+	useLazyGetAccDataQuery,
+	useGetAccDataQuery,
+	useGetMmrDataQuery,
+	useGetMatchHistoryDataQuery,
+	useGetUnrankedMatchHistoryDataQuery,
+	useGetAccGamesDataQuery
+} = valorantApi;

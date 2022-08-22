@@ -10,6 +10,8 @@ const AccountMMR: React.FC<IMmrData> = ({
 	mmr_change_to_last_game,
 	currenttierpatched,
 	ranking_in_tier,
+	wins,
+	number_of_games,
 }: IMmrData) => {
 	const isLastGameLost = mmr_change_to_last_game! < 0 ? 'lost' : 'won';
 	const matchData = useAppSelector(state => state.matches);
@@ -98,6 +100,13 @@ const AccountMMR: React.FC<IMmrData> = ({
 						src={`https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/${currenttier}.png`}
 						alt='Rank'
 					/>
+				</p>
+				<p className='account-mmr-card-data'>
+					Matches in e5a1: {number_of_games}
+				</p>
+				<p className='account-mmr-card-data'>Won: {wins}</p>
+				<p className='account-mmr-card-data'>
+					Win%: {((wins! / number_of_games!) * 100).toFixed(1)}%
 				</p>
 				<p className='account-mmr-card-data'>RR points: {ranking_in_tier}</p>
 				<p className='account-mmr-card-data'>Elo: {elo}</p>

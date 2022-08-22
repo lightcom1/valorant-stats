@@ -29,9 +29,21 @@ export interface IMmrData {
 	name?: string | undefined;
 	tag?: string | undefined;
 	old?: boolean | undefined;
+	wins?: number | undefined;
+	number_of_games?: number | undefined;
 }
 
 export interface MmrResponse<T> {
+	status: number;
+	data: T;
+}
+
+export interface AccGamesData {
+	wins: number;
+	number_of_games: number;
+}
+
+export interface AccGamesDataResponse<T> {
 	status: number;
 	data: T;
 }

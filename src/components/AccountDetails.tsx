@@ -1,6 +1,7 @@
 import { useAppSelector } from '../hooks/redux';
 import {
 	useGetAccDataQuery,
+	useGetAccGamesDataQuery,
 	useGetMatchHistoryDataQuery,
 	useGetMmrDataQuery,
 	useGetUnrankedMatchHistoryDataQuery,
@@ -27,6 +28,12 @@ const AccountDetails: React.FC = () => {
 		isError: isMmrError,
 		data: mmrData,
 	} = useGetMmrDataQuery(`${username}#${tag}`);
+
+	const {
+		isLoading: isAccGamesLoading,
+		isError: isAccGamesError,
+		data: accGamesData,
+	} = useGetAccGamesDataQuery(`${username}#${tag}`);
 
 	const {
 		isLoading: isMatchHistoryLoading,
@@ -97,6 +104,7 @@ const AccountDetails: React.FC = () => {
 		) {
 			matchHistoryData!.map(match => addMatchData({ ...match, username }));
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [matchHistoryData]);
 
 	useEffect(() => {
@@ -109,10 +117,24 @@ const AccountDetails: React.FC = () => {
 				addUnratedMatchData({ ...match, username })
 			);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [unratedMatchHistoryData]);
 
 	return (
 		<>
+			<ul className='circles'>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+
 			{isError && (
 				<p className='warning-text'>
 					Error while loading player info... Try again later
@@ -138,7 +160,9 @@ const AccountDetails: React.FC = () => {
 			<nav className='nav'>
 				{!isMmrLoading && (
 					<button className='nav-btn' onClick={() => handleMmrDataClick()}>
-						<span>{mmrData!?.currenttierpatched ? 'MMR Data' : 'Unrated MMR Data'}</span>
+						<span>
+							{mmrData!?.currenttierpatched ? 'MMR Data' : 'Unrated MMR Data'}
+						</span>
 					</button>
 				)}
 				{!isMatchHistoryLoading && matchHistoryData!?.length > 0 && (
@@ -168,10 +192,12 @@ const AccountDetails: React.FC = () => {
 					(style, item) =>
 						!isMmrLoading &&
 						!isMmrError &&
+						!isAccGamesLoading &&
+						!isAccGamesError &&
 						item && (
 							<animated.div style={style}>
 								{mmrData!?.currenttierpatched ? (
-									<AccountMMR {...mmrData} />
+									<AccountMMR {...mmrData} {...accGamesData} />
 								) : (
 									<AccountUnratedMMR />
 								)}
