@@ -16,6 +16,7 @@ import { useActions } from '../hooks/actions';
 import { useNavigate } from 'react-router-dom';
 import AccountUnratedMatchHistory from './AccountUnratedMatchHistory';
 import AccountUnratedMMR from './AccountUnratedMMR';
+import ParticlesBg from './ParticlesBg';
 
 const AccountDetails: React.FC = () => {
 	const { username, tag } = useAppSelector(state => state.account);
@@ -122,19 +123,7 @@ const AccountDetails: React.FC = () => {
 
 	return (
 		<>
-			<ul className='circles'>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ul>
-
+		<ParticlesBg/>
 			{isError && (
 				<p className='warning-text'>
 					Error while loading player info... Try again later
