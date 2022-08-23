@@ -9,6 +9,13 @@ const particlesConfig = {
 			enable: true,
 			width: 1.5,
 		},
+		number: {
+			value: 150,
+			density: {
+        enable: true,
+        value_area: 900
+      }
+		},
 		move: {
 			speed: 1,
 			enable: true,
@@ -20,6 +27,8 @@ const particlesConfig = {
 			type: 'circle',
 		},
 	},
+	retina_detect: true,
+	
 };
 
 export default particlesConfig;
