@@ -10,10 +10,10 @@ const particlesConfig = {
 			width: 1.5,
 		},
 		number: {
-			value: 150,
+			value: 90,
 			density: {
         enable: true,
-        value_area: 900
+        value_area: 1100
       }
 		},
 		move: {
@@ -27,7 +27,7 @@ const particlesConfig = {
 			type: 'circle',
 		},
 	},
-	retina_detect: true,
+	retina_detect: true, 
 	
 };
 
