@@ -83,7 +83,6 @@ body {
 	touch-action: none;
 	-ms-touch-action: none;
 	font-size: 2rem;
-	background: 38% / cover no-repeat fixed url(./assets/background.jpg);
 	padding: 0;
 	margin: 0;
 	font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -92,7 +91,32 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+@supports not (background-image: url(./assets/background.webp)) {
+	body {
+		background: center / cover no-repeat fixed #121619
+			url(./assets/background.jpg);
+
+	}
+}
+@supports (background-image: url(./assets/background.webp)) {
+	body {
+		background: center / cover no-repeat fixed #121619
+			url(./assets/background.webp);
+
+	}
+}
+
 @media screen and (max-width: 500px) {
+	@supports not (background-image: url(./assets/background.webp)) {
+		body {
+			background-position: 82% 120px;
+		}
+	}
+	@supports (background-image: url(./assets/background.webp)) {
+		body {
+			background-position: 82% 120px;
+		}
+	}
 	* {
 		cursor: default;
 	}

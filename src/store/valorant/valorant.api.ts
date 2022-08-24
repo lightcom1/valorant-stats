@@ -25,7 +25,7 @@ export const valorantApi = createApi({
 		}),
 		getAccGamesData: build.query<AccGamesData, string>({
 			query: (search: string) => ({
-				url: `v2/mmr/eu/${search.split('#').join('/')}?filter=e5a1`,
+				url: `v2/mmr/eu/${search.split('#').join('/')}?filter=e5a2`,
 			}),
 			transformResponse: (response: AccGamesDataResponse<AccGamesData>) => ({
 				number_of_games: response.data.number_of_games,

@@ -102,9 +102,9 @@ const AccountMMR: React.FC<IMmrData> = ({
 					/>
 				</p>
 				<p className='account-mmr-card-data'>
-					Matches in e5a1: {number_of_games}
+					Matches in e5a2: {number_of_games || 0}
 				</p>
-				<p className='account-mmr-card-data'>Wins: {wins} Win%: {((wins! / number_of_games!) * 100).toFixed(1)}%</p>
+				<p className='account-mmr-card-data'>Wins: {wins || 0} Win%: {number_of_games ? ((wins! / number_of_games!) * 100).toFixed(1) : 0}%</p>
 				<p className='account-mmr-card-data'>RR points: {ranking_in_tier}</p>
 				<p className='account-mmr-card-data'>Elo: {elo} Tier: {currenttier}</p>
 				<p className='account-mmr-card-data'>
