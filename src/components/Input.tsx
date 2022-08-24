@@ -33,11 +33,13 @@ const Input = () => {
 	useEffect(() => {
 		resetUnrated();
 		reset();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		data?.name && addData(nickname);
 		data?.name && navigate('/account-details');
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data]);
 
 	useEffect(() => {
