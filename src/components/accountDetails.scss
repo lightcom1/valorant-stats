@@ -44,14 +44,36 @@
 				padding: 5px;
 			}
 		}
+		.level-favorite {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			row-gap: 5px;
 
-		.account-level {
-			border: 1px solid #fff;
-			background-color: rgba(19, 35, 51, 0.75);
-			border-radius: 5px;
-			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-			padding: 5px;
-			font-weight: 700;
+			.account-level {
+				border: 1px solid #fff;
+				background-color: rgba(19, 35, 51, 0.75);
+				border-radius: 5px;
+				box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+				padding: 5px;
+				font-weight: 700;
+			}
+
+			.favorites-btn {
+				border: 1px solid #fff;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 0 2px;
+				padding-bottom: 1px;
+				border-radius: 5px;
+				cursor: pointer;
+				background-color: rgba(19, 35, 51, 0.7);
+
+				&.filled {
+					background-color: rgba(173, 155, 106, 0.7);
+				}
+			}
 		}
 	}
 

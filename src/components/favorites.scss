@@ -1,0 +1,59 @@
+.favorites-modal {
+	color: #fff;
+	padding: 15px;
+	padding-top: 60px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 90vw;
+	height: 90vh;
+	overflow-y: scroll;
+	background-color: rgba(15, 25, 35, 0.95);
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+
+	.close-btn {
+		position: absolute;
+		cursor: pointer;
+		top: 10px;
+		right: 10px;
+		transition: transform 0.3s ease;
+
+		&:hover {
+			transform: scale(1.2);
+		}
+	}
+
+	.favorites-names {
+		display: flex;
+		flex-direction: column;
+		row-gap: 20px;
+
+		.favorites-wrapper {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+
+			&--name {
+				cursor: pointer;
+				transition: color 0.2s ease;
+				max-width: 14ch;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+
+				&:hover {
+					color: #ff1d30;
+				}
+			}
+
+			.delete {
+				height: 30px;
+				cursor: pointer;
+				margin-left: auto;
+			}
+		}
+	}
+}
