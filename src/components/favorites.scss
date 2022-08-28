@@ -13,6 +13,11 @@
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
+	border-radius: 10px;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
 
 	.close-btn {
 		position: absolute;
@@ -41,11 +46,18 @@
 				transition: color 0.2s ease;
 				max-width: 14ch;
 				text-overflow: ellipsis;
-				overflow: hidden;
+				overflow-x: hidden;
 				white-space: nowrap;
+				background-color: rgba(2, 15, 27, 0.95);
+				border-radius: 5px;
+				padding: 5px;
 
 				&:hover {
 					color: #ff1d30;
+				}
+
+				@media screen and (max-width: 500px) {
+					cursor: default;
 				}
 			}
 
