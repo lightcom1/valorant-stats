@@ -20,7 +20,7 @@ import ParticlesBg from './ParticlesBg';
 import { v4 as uuidv4 } from 'uuid';
 
 const AccountDetails: React.FC = () => {
-	const { username, tag } = useAppSelector(state => state.account);
+	const { username, tag, region } = useAppSelector(state => state.account);
 	const { isLoading, isError, data } = useGetAccDataQuery(`${username}#${tag}`);
 	const [isFavorite, setisFavorite] = useState(false);
 	const [favorites, setFavorites] = useState<any[]>([]);
@@ -31,25 +31,25 @@ const AccountDetails: React.FC = () => {
 		isLoading: isMmrLoading,
 		isError: isMmrError,
 		data: mmrData,
-	} = useGetMmrDataQuery(`${username}#${tag}`);
+	} = useGetMmrDataQuery(`${region}#${username}#${tag}`);
 
 	const {
 		isLoading: isAccGamesLoading,
 		isError: isAccGamesError,
 		data: accGamesData,
-	} = useGetAccGamesDataQuery(`${username}#${tag}`);
+	} = useGetAccGamesDataQuery(`${region}#${username}#${tag}`);
 
 	const {
 		isLoading: isMatchHistoryLoading,
 		isError: isMatchHistoryError,
 		data: matchHistoryData,
-	} = useGetMatchHistoryDataQuery(`${username}#${tag}`);
+	} = useGetMatchHistoryDataQuery(`${region}#${username}#${tag}`);
 
 	const {
 		isLoading: isUnratedMatchHistoryLoading,
 		isError: isUnratedMatchHistoryError,
 		data: unratedMatchHistoryData,
-	} = useGetUnrankedMatchHistoryDataQuery(`${username}#${tag}`);
+	} = useGetUnrankedMatchHistoryDataQuery(`${region}#${username}#${tag}`);
 
 	const handleMmrDataClick = () => {
 		setShowMatchHistoryData(false);

@@ -40,7 +40,7 @@ const Input = () => {
 	}, []);
 
 	useEffect(() => {
-		data?.name && addData(nickname);
+		data?.name && addData(`${nickname}#${data.region}`);
 		data?.name && navigate('/account-details');
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data]);
