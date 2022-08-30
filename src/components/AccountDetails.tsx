@@ -162,7 +162,7 @@ const AccountDetails: React.FC = () => {
 			<ParticlesBg />
 			{isError && (
 				<p className='warning-text'>
-					Error while loading player info... Try again later
+					Error while loading player info... Reload data or try again later
 				</p>
 			)}
 			{!isLoading ? (
@@ -191,7 +191,7 @@ const AccountDetails: React.FC = () => {
 										clipRule='evenodd'
 										d='M17.0403 6.68555C18.1363 4.79687 20.8637 4.79688 21.9597 6.68556L25.3159 12.4695C25.6252 13.0027 26.1599 13.3665 26.7694 13.4585L32.3426 14.3003C34.7719 14.6672 35.6241 17.7345 33.7321 19.302L29.6714 22.6662C29.1015 23.1384 28.8335 23.8833 28.9719 24.6104L30.1094 30.5838C30.555 32.9238 28.0986 34.7418 25.9909 33.632L20.4464 30.7126C19.854 30.4007 19.146 30.4007 18.5536 30.7126L13.0091 33.632C10.9014 34.7418 8.44504 32.9238 8.89061 30.5838L10.0281 24.6104C10.1665 23.8833 9.89854 23.1384 9.32859 22.6662L5.26787 19.302C3.37591 17.7345 4.22806 14.6672 6.65743 14.3003L12.2306 13.4585C12.8401 13.3665 13.3748 13.0027 13.6841 12.4695L17.0403 6.68555Z'
 										stroke='white'
-										stroke-width='3'
+										strokeWidth='3'
 										strokeLinejoin='round'
 									/>
 								</svg>
@@ -231,7 +231,7 @@ const AccountDetails: React.FC = () => {
 			<div className='relative' style={{ position: 'relative' }}>
 				{isMmrError && (
 					<p className='warning-text'>
-						Error while loading mmr data... Try again later
+						Error while loading mmr data... Reload data or try again later
 					</p>
 				)}
 				{isMmrLoading && <span className='loader details'></span>}
@@ -254,7 +254,7 @@ const AccountDetails: React.FC = () => {
 
 				{isMatchHistoryError && (
 					<p className='warning-text'>
-						Error while loading match history... Try again later
+						Error while loading match history... Reload data or try again later
 					</p>
 				)}
 				{isMatchHistoryLoading && <span className='loader details'></span>}
@@ -273,7 +273,7 @@ const AccountDetails: React.FC = () => {
 
 				{isUnratedMatchHistoryError && (
 					<p className='warning-text'>
-						Error while loading unrated match history... Try again later
+						Error while loading unrated match history... Reload data or try again later
 					</p>
 				)}
 
