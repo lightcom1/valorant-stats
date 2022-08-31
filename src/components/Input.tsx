@@ -62,6 +62,9 @@ const Input = () => {
 		leave: {
 			opacity: 0,
 		},
+		config: {
+			duration: 200,
+		},
 	};
 	const transitionFavorites = useTransition(showFavorites, transitionOptions);
 
@@ -93,9 +96,7 @@ const Input = () => {
 			<div style={{ position: 'relative' }}>
 				{isLoading && <span className='loader'></span>}
 				{!isLoading && (
-					<div
-						className='favorites-btn'
-						onClick={() => setShowFavorites(!showFavorites)}>
+					<div className='favorites-btn' onClick={() => setShowFavorites(true)}>
 						<svg
 							width='39'
 							height='39'
@@ -116,12 +117,15 @@ const Input = () => {
 					<span className='search-text'>Search</span>
 				</button>
 			</div>
- 
+
 			{transitionFavorites(
 				(style, item) =>
 					item && (
 						<animated.div style={style}>
-							<Favorites showFavorites={showFavorites} setShowFavorites={setShowFavorites} setNickname={setNickname}/>
+							<Favorites
+								setShowFavorites={setShowFavorites}
+								setNickname={setNickname}
+							/>
 						</animated.div>
 					)
 			)}

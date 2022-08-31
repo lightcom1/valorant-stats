@@ -1,7 +1,7 @@
 import './favorites.scss';
 import { useEffect, useState } from 'react';
 
-const Favorites = ({ showFavorites, setShowFavorites, setNickname }: any) => {
+const Favorites = ({ setShowFavorites, setNickname }: any) => {
 	const [favorites, setFavorites] = useState<any[]>([]);
 
 	useEffect(() => {
@@ -11,7 +11,7 @@ const Favorites = ({ showFavorites, setShowFavorites, setNickname }: any) => {
 
 	const handleFavoritesClick = (name: string) => {
 		setNickname(name);
-		setShowFavorites(!showFavorites);
+		setShowFavorites(false);
 	};
 
 	const handleDelete = (id: number) => {
@@ -25,7 +25,7 @@ const Favorites = ({ showFavorites, setShowFavorites, setNickname }: any) => {
 		<div className='favorites-modal'>
 			<div
 				className='close-btn'
-				onClick={() => setShowFavorites(!showFavorites)}>
+				onClick={() => setShowFavorites(false)}>
 				<svg
 					width='40'
 					height='40'
