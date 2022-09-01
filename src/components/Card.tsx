@@ -5,9 +5,10 @@ interface MatchState {
 	metadata: Metadata;
 	player: AllPlayer;
 	teams: Teams;
+	rrPointsChange: number | undefined;
 }
 
-const Card: React.FC<MatchState> = ({ metadata, player, teams }: MatchState) => {
+const Card: React.FC<MatchState> = ({ metadata, player, teams, rrPointsChange }: MatchState) => {
 	function convertMsToMinutesSeconds(milliseconds: number) {
 		const minutes = Math.floor(milliseconds! / 60000);
 		const seconds = Math.floor((milliseconds! % 60000) / 1000);
@@ -91,7 +92,7 @@ const Card: React.FC<MatchState> = ({ metadata, player, teams }: MatchState) => 
 						{!isDraw && (
 							<p
 								className={`map-stats__result ${isWon ? 'victory' : 'defeat'}`}>
-								{isWon ? 'Victory' : 'Defeat'}
+								{isWon ? `Victory ${rrPointsChange ? '+' + rrPointsChange : ''}` : `Defeat ${rrPointsChange || ''}`}
 							</p>
 						)}
 						{isDraw && <p className='map-stats__result draw'>Draw</p>}

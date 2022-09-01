@@ -47,3 +47,20 @@ export interface AccGamesDataResponse<T> {
 	status: number;
 	data: T;
 }
+
+export interface RRPoints {
+	currenttier: number;
+	currenttierpatched: string;
+	ranking_in_tier: number;
+	mmr_change_to_last_game: number;
+	elo: number;
+	date: string;
+	date_raw: number;
+}
+
+export interface RRPointsResponse<T> {
+	status: number;
+	name: string;
+	tag: string;
+	data: T;
+}

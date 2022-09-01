@@ -4,6 +4,7 @@ import {
 	useGetAccGamesDataQuery,
 	useGetMatchHistoryDataQuery,
 	useGetMmrDataQuery,
+	useGetRRPointsDataQuery,
 	useGetUnrankedMatchHistoryDataQuery,
 } from '../store/valorant/valorant.api';
 import './accountDetails.scss';
@@ -32,6 +33,12 @@ const AccountDetails: React.FC = () => {
 		isError: isMmrError,
 		data: mmrData,
 	} = useGetMmrDataQuery(`${region}#${username}#${tag}`);
+
+	const {
+		isLoading: isRRPointsLoading,
+		isError: isRRPointsError,
+		data: RRPointsData,
+	} = useGetRRPointsDataQuery(`${region}#${username}#${tag}`);
 
 	const {
 		isLoading: isAccGamesLoading,
@@ -104,12 +111,17 @@ const AccountDetails: React.FC = () => {
 		if (
 			matchHistoryData!?.length &&
 			!isMatchHistoryLoading &&
+			!isRRPointsError &&
+			!isRRPointsLoading &&
 			matchHistoryData![0]?.players
 		) {
-			matchHistoryData!.map(match => addMatchData({ ...match, username }));
+			matchHistoryData!.map((match, i) => {
+				const changedRRPoints = RRPointsData![i as keyof typeof RRPointsData];
+				return addMatchData({ ...match, changedRRPoints, username });
+			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [matchHistoryData]);
+	}, [matchHistoryData, RRPointsData]);
 
 	useEffect(() => {
 		if (
@@ -176,9 +188,7 @@ const AccountDetails: React.FC = () => {
 						</div>
 						<div className='level-favorite'>
 							<span className='account-level'>{data?.account_level}</span>
-							<div
-								className='favorites-btn'
-								onClick={() => addToFavorite()}>
+							<div className='favorites-btn' onClick={() => addToFavorite()}>
 								<svg
 									width='35'
 									height='35'
@@ -240,7 +250,7 @@ const AccountDetails: React.FC = () => {
 						!isMmrLoading &&
 						!isMmrError &&
 						!isAccGamesLoading &&
-						!isAccGamesError &&
+						(!isAccGamesError || !mmrData!?.currenttierpatched) &&
 						item && (
 							<animated.div style={style}>
 								{mmrData!?.currenttierpatched ? (
@@ -273,7 +283,8 @@ const AccountDetails: React.FC = () => {
 
 				{isUnratedMatchHistoryError && (
 					<p className='warning-text'>
-						Error while loading unrated match history... Reload data or try again later
+						Error while loading unrated match history... Reload data or try
+						again later
 					</p>
 				)}
 

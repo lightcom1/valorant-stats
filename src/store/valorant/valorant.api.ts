@@ -7,6 +7,8 @@ import {
 	MmrResponse,
 	AccGamesData,
 	AccGamesDataResponse,
+	RRPoints,
+	RRPointsResponse
 } from './../../models/models';
 import { HistoryData } from './../../models/matchHistory';
 
@@ -21,6 +23,13 @@ export const valorantApi = createApi({
 				url: `v1/account/${search.split('#').join('/')}`,
 			}),
 			transformResponse: (response: ServerResponse<AccountData>) =>
+				response.data,
+		}),
+		getRRPointsData: build.query<RRPoints, string>({
+			query: (search: string) => ({
+				url: `v1/mmr-history/${search.split('#').join('/')}`,
+			}),
+			transformResponse: (response: RRPointsResponse<RRPoints>) =>
 				response.data,
 		}),
 		getAccGamesData: build.query<AccGamesData, string>({
@@ -61,5 +70,6 @@ export const {
 	useGetMmrDataQuery,
 	useGetMatchHistoryDataQuery,
 	useGetUnrankedMatchHistoryDataQuery,
-	useGetAccGamesDataQuery
+	useGetAccGamesDataQuery,
+	useGetRRPointsDataQuery
 } = valorantApi;

@@ -7,6 +7,7 @@ export const matchSlice = createSlice({
 	initialState,
 	reducers: {
 		addMatchData(state, action: PayloadAction<any>) {
+			console.log('action.payload: ', action.payload);
 			const plIndex = action.payload.players.all_players.findIndex(
 				(player: any) =>
 					player.name.toLowerCase() === action.payload.username.toLowerCase()
@@ -16,6 +17,7 @@ export const matchSlice = createSlice({
 				metadata: action.payload.metadata,
 				player: action.payload.players.all_players[plIndex],
 				teams: action.payload.teams,
+				rrPointsChange: action.payload.changedRRPoints.mmr_change_to_last_game
 			};
 
 			state.push(data);

@@ -12,6 +12,7 @@ interface MatchState {
 	metadata: Metadata;
 	player: AllPlayer;
 	teams: Teams;
+	rrPointsChange: number | undefined;
 }
 
 const AccountUnratedMatchHistory: React.FC<any> = () => {
@@ -24,6 +25,7 @@ const AccountUnratedMatchHistory: React.FC<any> = () => {
 					metadata={match.metadata}
 					player={match.player}
 					teams={match.teams}
+					rrPointsChange={undefined}
 					key={i}
 				/>
 			))}

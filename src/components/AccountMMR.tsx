@@ -97,7 +97,7 @@ const AccountMMR: React.FC<IMmrData> = ({
 					Rank: {currenttierpatched}
 					<img
 						className='player-rank'
-						src={`https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/${currenttier}.png`}
+						src={`https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/${currenttier}/smallicon.png`}
 						alt='Rank'
 					/>
 				</p>
