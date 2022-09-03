@@ -21,7 +21,7 @@ const AccountMMR: React.FC<IMmrData> = ({
 	useEffect(() => {
 		if (matchData.length > 0) {
 			for (let match of matchData) {
-				setPlayerStats(prev => [...prev, match.player]);
+				match.player && setPlayerStats(prev => [...prev, match.player]);
 			}
 		}
 	}, [matchData]);

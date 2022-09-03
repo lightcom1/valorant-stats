@@ -17,7 +17,7 @@ const AccountMatchHistory: React.FC<any> = () => {
 	return (
 		<div className='account-matches'>
 			{matchData.map((match: MatchState, i: number) => (
-				<Card
+				match.player && <Card
 					metadata={match.metadata}
 					player={match.player}
 					teams={match.teams}
