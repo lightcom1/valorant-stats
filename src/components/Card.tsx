@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, { memo } from 'react';
 import { AllPlayer, Metadata, Teams } from './../models/matchHistory';
 
 interface MatchState {
@@ -8,7 +8,12 @@ interface MatchState {
 	rrPointsChange: number | undefined;
 }
 
-const Card: React.FC<MatchState> = ({ metadata, player, teams, rrPointsChange }: MatchState) => {
+const Card: React.FC<MatchState> = ({
+	metadata,
+	player,
+	teams,
+	rrPointsChange,
+}: MatchState) => {
 	function convertMsToMinutesSeconds(milliseconds: number) {
 		const minutes = Math.floor(milliseconds! / 60000);
 		const seconds = Math.floor((milliseconds! % 60000) / 1000);
@@ -31,7 +36,8 @@ const Card: React.FC<MatchState> = ({ metadata, player, teams, rrPointsChange }:
 
 	//Match date
 	const time = new Date(`${metadata?.game_start_patched}`);
-	let hours = time.getHours() + 1;
+	time.setTime(time.getTime() + 1 * 60 * 60 * 1000);
+	let hours = time.getHours();
 	const AmOrPm = hours >= 12 ? 'PM' : 'AM';
 	const month = [
 		'Jan',
@@ -81,7 +87,7 @@ const Card: React.FC<MatchState> = ({ metadata, player, teams, rrPointsChange }:
 				</div>
 				<div className='match-data-info'>
 					<p className='day'>
-						{month[time.getMonth()]} {time.getDate()} {hours % 12 || 12}:
+						{month[time.getMonth()]} {time.getDate()} {hours % 12 || 0}:
 						{time.getMinutes().toString().padStart(2, '0')} {AmOrPm}
 					</p>
 					<p className='minutes'>
@@ -92,7 +98,9 @@ const Card: React.FC<MatchState> = ({ metadata, player, teams, rrPointsChange }:
 						{!isDraw && (
 							<p
 								className={`map-stats__result ${isWon ? 'victory' : 'defeat'}`}>
-								{isWon ? `Victory ${rrPointsChange ? '+' + rrPointsChange : ''}` : `Defeat ${rrPointsChange || ''}`}
+								{isWon
+									? `Victory ${rrPointsChange ? '+' + rrPointsChange : ''}`
+									: `Defeat ${rrPointsChange || ''}`}
 							</p>
 						)}
 						{isDraw && <p className='map-stats__result draw'>Draw</p>}
