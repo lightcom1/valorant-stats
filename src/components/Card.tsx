@@ -87,7 +87,8 @@ const Card: React.FC<MatchState> = ({
 				</div>
 				<div className='match-data-info'>
 					<p className='day'>
-						{month[time.getMonth()]} {time.getDate()} {hours % 12 || 0}:
+						{month[time.getMonth()]} {time.getDate()}{' '}
+						{(AmOrPm === 'PM' && hours === 12 ? 12 : hours % 12) || 0}:
 						{time.getMinutes().toString().padStart(2, '0')} {AmOrPm}
 					</p>
 					<p className='minutes'>
